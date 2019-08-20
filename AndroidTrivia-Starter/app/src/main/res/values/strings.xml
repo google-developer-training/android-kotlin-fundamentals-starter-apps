@@ -16,6 +16,10 @@
 
 <resources>
     <string name="app_name">Android Trivia</string>
+    <string name="play_title_button">Play</string>
+    <string name="rules_title_button">Rules</string>
+    <string name="about_title_button">About</string>
+    <string name="title_image_description">Android Trivia logo</string>
     <string name="game_over">Game Over</string>
     <string name="try_again">Try Again?</string>
     <string name="position">Position</string>
@@ -34,4 +38,7 @@
     <string name="congratulations">Congratulations!</string>
     <string name="share">Share</string>
     <string name="sharing_not_available">Sharing Not Available</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
