@@ -17,6 +17,6 @@ class ScoreViewModelFactory(private val finalScore: Int) : ViewModelProvider.Fac
             @Suppress("UNCHECKED_CAST")
             return ScoreViewModel(finalScore) as T
         }
-        throw IllegalArgumentException("Unknown Viewmodel Class")
+        throw IllegalArgumentException("Unknown ViewModel Class")
     }
 }
