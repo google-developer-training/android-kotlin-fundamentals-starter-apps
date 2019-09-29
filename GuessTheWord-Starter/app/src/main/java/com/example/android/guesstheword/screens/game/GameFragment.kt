@@ -37,7 +37,6 @@ class GameFragment : Fragment() {
 
 
     private lateinit var binding: GameFragmentBinding
-
     private lateinit var viewModel: GameViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +61,11 @@ class GameFragment : Fragment() {
             binding.wordText.text = newWord
         })
 
+        viewModel.eventGameFinish.observe(this, Observer<Boolean> { hasFinished ->
+            if(hasFinished)
+                gameFinished()
+        })
+
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
         binding.endGameButton.setOnClickListener { onEndGame() }
@@ -84,9 +88,9 @@ class GameFragment : Fragment() {
 
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just ended", Toast.LENGTH_SHORT).show()
-        val action = GameFragmentDirections.actionGameToScore()
-        action.score = viewModel.score.value ?: 0
-        NavHostFragment.findNavController(this).navigate(action)
+//        val action = GameFragmentDirections.actionGameToScore()
+//        action.score = viewModel.score.value ?: 0
+//        NavHostFragment.findNavController(this).navigate(action)
     }
 
 
