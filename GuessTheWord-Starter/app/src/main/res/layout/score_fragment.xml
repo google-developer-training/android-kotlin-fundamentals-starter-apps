@@ -63,7 +63,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/you_scored_text"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="40" />
+            tools:text="40"
+            android:text="@{String.valueOf(scoreViewModel.score)}"/>
 
         <Button
             android:id="@+id/play_again_button"
