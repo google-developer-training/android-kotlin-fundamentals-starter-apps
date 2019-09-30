@@ -18,6 +18,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="gameViewModel"
+            type="com.example.android.guesstheword.screens.game.GameViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_layout"
         android:layout_width="match_parent"
@@ -100,7 +106,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            android:onClick="@{() -> gameViewModel.onSkip()}"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -120,7 +127,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/end_game_button"
             app:layout_constraintStart_toEndOf="@+id/skip_button"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            android:onClick="@{() -> gameViewModel.onCorrect()}"/>
 
         <Button
             android:id="@+id/end_game_button"
@@ -131,7 +139,8 @@
             android:theme="@style/SkipButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            android:onClick="@{() -> gameViewModel.onGameFinish()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

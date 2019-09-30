@@ -99,7 +99,7 @@ class GameViewModel : ViewModel() {
         nextWord()
     }
 
-    private fun onGameFinish() {
+    fun onGameFinish() {
         _eventGameFinish.value = true
     }
 
