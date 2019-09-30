@@ -25,4 +25,6 @@
     <string name="got_it">Got it</string>
     <string name="end_game">End game</string>
     <string name="word_is">The word is…</string>
+    <string name="quote_format">\"%s\"</string>
+    <string name="score_format">Current score: %d</string>
 </resources>
