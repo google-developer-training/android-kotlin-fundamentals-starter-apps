@@ -80,6 +80,7 @@
             app:layout_constraintBottom_toTopOf="@+id/score_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:text="5:00"
             tools:text="0:00" />
 
         <TextView
