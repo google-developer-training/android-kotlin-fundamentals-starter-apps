@@ -37,15 +37,22 @@ class GameViewModel : ViewModel() {
 
     private val timer: CountDownTimer
 
-    val currentTimeString = Transformations.map(currentTime) { time ->
+    val currentTimeString: LiveData<String> = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime(time)
+    }
+
+    val wordHint: LiveData<String> = Transformations.map(word) { word ->
+        val randomPosition = (1..word.length).random()
+        "Current word has " + word.length + " letters" +
+            "\nThe letter at position " + randomPosition + " is " +
+            word[randomPosition - 1].toUpperCase()
     }
 
     companion object {
         // time when the game is over
         private const val DONE = 0L
 
-        // countdownn time interval
+        // countdown time interval
         private const val ONE_SECOND = 1000L
 
         // total time for the game
