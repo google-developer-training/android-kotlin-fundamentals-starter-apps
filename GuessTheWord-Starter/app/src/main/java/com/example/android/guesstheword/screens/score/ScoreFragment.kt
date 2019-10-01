@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.ScoreFragmentBinding
+
 /**
  * Fragment where the final score is shown, after the game is over
  */
@@ -63,7 +64,7 @@ class ScoreFragment : Fragment() {
 //        })
 
         viewModel.eventPlayAgain.observe(this, Observer { playAgain ->
-            if(playAgain) {
+            if (playAgain) {
                 findNavController().navigate(ScoreFragmentDirections.actionRestart())
                 viewModel.onPlayAgainComplete()
             }
