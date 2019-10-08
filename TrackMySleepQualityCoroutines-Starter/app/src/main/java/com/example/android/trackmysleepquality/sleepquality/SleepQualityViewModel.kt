@@ -45,7 +45,7 @@ class SleepQualityViewModel(
         database.update(tonight)
       }
 
-      // Setting this state variable to true will alter thbe observer and trigger navigation
+      // Setting this state variable to true will alter the observer and trigger navigation
       _navigateToSleepTracker.value = true
     }
   }
