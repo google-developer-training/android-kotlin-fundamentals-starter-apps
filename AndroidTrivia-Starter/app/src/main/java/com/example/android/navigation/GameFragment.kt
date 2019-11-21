@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.android.navigation.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -55,7 +56,6 @@ class GameFragment : Fragment() {
             Question(text = "What do you use to mark a layout for data binding?",
                     answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
     )
-
 
 
     lateinit var currentQuestion: Question
@@ -98,10 +98,10 @@ class GameFragment : Fragment() {
                         setQuestion()
                         binding.invalidateAll()
                     } else {
-                        // We've won!  Navigate to the gameWonFragment.
+                        view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions, questionIndex))
                     }
                 } else {
-                    // Game over! A wrong answer sends us to the gameOverFragment.
+                    view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment())
                 }
             }
         }
