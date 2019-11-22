@@ -18,6 +18,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModle"
+            type="com.example.android.guesstheword.screens.score.ScoreViewModel" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/score_layout"
         android:layout_width="match_parent"
@@ -48,6 +55,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
+            android:text="@{viewModle.score.toString()}"
             android:textColor="@color/black_text_color"
             android:textSize="34sp"
             android:textStyle="normal"
@@ -64,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
+            android:onClick="@{()-> viewModle.onPlayAgain()}"
             android:text="@string/play_again"
             android:theme="@style/GoButton"
             android:visibility="visible"
