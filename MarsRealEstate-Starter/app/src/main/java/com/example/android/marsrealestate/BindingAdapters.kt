@@ -17,3 +17,55 @@
 
 package com.example.android.marsrealestate
 
+import android.view.View
+import android.widget.ImageView
+import androidx.core.net.toUri
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.android.marsrealestate.network.MarsProperty
+import com.example.android.marsrealestate.overview.MarsApiStatus
+import com.example.android.marsrealestate.overview.PhotoGridAdapter
+
+@BindingAdapter("imageUrl")
+fun ImageView.imageUrl(uri: String?) {
+    uri?.let {
+        val imageUri = uri.toUri().buildUpon().scheme("https").build()
+        Glide.with(this)
+                .load(imageUri)
+                .apply(RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image))
+                .into(this)
+
+    }
+}
+
+@BindingAdapter("listData")
+fun RecyclerView.listData(list: List<MarsProperty>?) {
+    list?.isNotEmpty().let {
+        val adapter = this.adapter as PhotoGridAdapter
+        adapter.submitList(list)
+    }
+}
+
+@BindingAdapter("bindStatus")
+fun ImageView.bindStatus(status: MarsApiStatus?) {
+    when (status) {
+        MarsApiStatus.LOADING -> {
+            this.visibility = View.VISIBLE
+            setImageResource(R.drawable.loading_animation)
+        }
+
+        MarsApiStatus.DONE -> {
+
+            this.visibility = View.GONE
+        }
+
+        MarsApiStatus.ERROR -> {
+            this.visibility = View.VISIBLE
+            setImageResource(R.drawable.ic_connection_error)
+        }
+    }
+}

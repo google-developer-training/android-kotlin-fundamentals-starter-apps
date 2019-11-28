@@ -15,7 +15,7 @@
  */
 
 package com.example.android.trackmysleepquality
-//
+
 //import androidx.room.Room
 //import androidx.test.ext.junit.runners.AndroidJUnit4
 //import androidx.test.platform.app.InstrumentationRegistry
@@ -64,8 +64,10 @@ package com.example.android.trackmysleepquality
 //    @Throws(Exception::class)
 //    fun insertAndGetNight() {
 //        val night = SleepNight()
+//        night.sleepQuality = 5
+//        night.endTimeMilli = 555L
 //        sleepDao.insert(night)
 //        val tonight = sleepDao.getTonight()
-//        assertEquals(tonight?.sleepQuality, -1)
+//        assertEquals(tonight?.endTimeMilli, 555L)
 //    }
 //}

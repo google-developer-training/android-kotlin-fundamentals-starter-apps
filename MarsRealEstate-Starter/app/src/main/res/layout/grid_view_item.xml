@@ -20,12 +20,52 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <ImageView
-        android:id="@+id/mars_image"
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="marsProperty"
+            type="com.example.android.marsrealestate.network.MarsProperty" />
+
+        <variable
+            name="clickListner"
+            type="com.example.android.marsrealestate.overview.PhotoGridAdapter.PhotoGridClickListener" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        tools:src="@tools:sample/backgrounds/scenic"/>
+        android:layout_height="wrap_content"
+        android:onClick="@{()-> clickListner.onClick(marsProperty)}">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp">
+
+
+            <ImageView
+                android:id="@+id/mars_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{marsProperty.imageUrl}"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <ImageView
+                android:id="@+id/mars_property_type"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_gravity="bottom|end"
+                android:adjustViewBounds="true"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_for_sale_outline"
+                android:visibility="@{marsProperty.rental? View.GONE : View.VISIBLE}"
+                tools:src="@drawable/ic_for_sale_outline" />
+
+        </FrameLayout>
+    </FrameLayout>
 </layout>
