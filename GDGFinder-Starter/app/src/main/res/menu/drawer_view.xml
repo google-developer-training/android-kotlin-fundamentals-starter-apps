@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-=======
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019, The Android Open Source Project
   ~
@@ -17,10 +13,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
->>>>>>> fix headers for cross
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/gdg_search"
         android:title="@string/gdg_search" />
