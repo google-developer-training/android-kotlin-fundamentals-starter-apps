@@ -20,6 +20,9 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.android.devbyteviewer.R
+import kotlinx.android.synthetic.main.fragment_dev_byte.*
 
 /**
  * Binding adapter used to hide the spinner once data is available.

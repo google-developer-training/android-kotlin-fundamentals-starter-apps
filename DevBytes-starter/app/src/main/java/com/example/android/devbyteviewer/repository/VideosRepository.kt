@@ -15,3 +15,29 @@
  */
 
 package com.example.android.devbyteviewer.repository
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import com.example.android.devbyteviewer.database.VideoDatabase
+import com.example.android.devbyteviewer.database.asDomainModel
+import com.example.android.devbyteviewer.domain.DevByteVideo
+import com.example.android.devbyteviewer.network.DevByteNetwork
+import com.example.android.devbyteviewer.network.asDatabaseModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import timber.log.Timber
+
+class VideosRepository(private val videoDatabase: VideoDatabase) {
+
+    val videos: LiveData<List<DevByteVideo>> = Transformations.map(videoDatabase.videDao.getAllVidoe()) {
+        it.asDomainModel()
+    }
+
+    suspend fun refreshVideso() {
+        withContext(Dispatchers.IO) {
+            Timber.i("refresh video is called")
+            val playList = DevByteNetwork.devbytes.getPlaylistAsync().await()
+            videoDatabase.videDao.insertAll(playList.asDatabaseModel())
+        }
+    }
+}

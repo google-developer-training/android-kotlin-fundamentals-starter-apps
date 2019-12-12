@@ -15,3 +15,39 @@
  */
 
 package com.example.android.devbyteviewer.database
+
+import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import androidx.room.Dao
+
+@Dao
+interface Dao {
+    @Query("select * from databaseVideos")
+    fun getAllVidoe(): LiveData<List<DatabaseVideos>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(videos: List<DatabaseVideos>)
+}
+
+@Database(entities = [DatabaseVideos::class], exportSchema = false, version = 1)
+abstract class VideoDatabase : RoomDatabase() {
+    abstract val videDao: com.example.android.devbyteviewer.database.Dao
+}
+
+private lateinit var INSTANCE: VideoDatabase
+
+fun getDatabase(context: Context): VideoDatabase {
+    synchronized(VideoDatabase::class) {
+        if (!::INSTANCE.isInitialized) {
+            INSTANCE = Room.databaseBuilder(
+                    context.applicationContext,
+                    VideoDatabase::class.java,
+                    "videos"
+            )
+                    .fallbackToDestructiveMigration()
+                    .build()
+        }
+        return INSTANCE
+    }
+}

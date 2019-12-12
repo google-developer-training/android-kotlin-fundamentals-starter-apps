@@ -31,14 +31,13 @@ import retrofit2.http.GET
  */
 interface DevbyteService {
     @GET("devbytes")
-    fun getPlaylist(): Deferred<NetworkVideoContainer>
+    fun getPlaylistAsync(): Deferred<NetworkVideoContainer>
 }
 
 /**
  * Main entry point for network access. Call like `DevByteNetwork.devbytes.getPlaylist()`
  */
 object DevByteNetwork {
-
     // Configure retrofit to parse JSON and use coroutines
     private val retrofit = Retrofit.Builder()
             .baseUrl("https://android-kotlin-fun-mars-server.appspot.com/")
@@ -46,7 +45,7 @@ object DevByteNetwork {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
-    val devbytes = retrofit.create(DevbyteService::class.java)
+    val devbytes: DevbyteService = retrofit.create(DevbyteService::class.java)
 
 }
 

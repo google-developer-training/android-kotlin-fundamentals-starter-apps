@@ -28,7 +28,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.devbyteviewer.R
 import com.example.android.devbyteviewer.databinding.DevbyteItemBinding
@@ -69,7 +71,7 @@ class DevByteFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel.playlist.observe(viewLifecycleOwner, Observer<List<DevByteVideo>> { videos ->
             videos?.apply {
-                viewModelAdapter?.videos = videos
+                viewModelAdapter?.submitList(videos)
             }
         })
     }
@@ -111,7 +113,7 @@ class DevByteFragment : Fragment() {
 
             // Try to generate a direct intent to the YouTube app
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
-            if(intent.resolveActivity(packageManager) == null) {
+            if (intent.resolveActivity(packageManager) == null) {
                 // YouTube app isn't found, use the web url
                 intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
             }
@@ -137,7 +139,7 @@ class DevByteFragment : Fragment() {
      * Method for displaying a Toast error message for network errors.
      */
     private fun onNetworkError() {
-        if(!viewModel.isNetworkErrorShown.value!!) {
+        if (!viewModel.isNetworkErrorShown.value!!) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
@@ -169,35 +171,16 @@ class VideoClick(val block: (DevByteVideo) -> Unit) {
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.
  */
-class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
-
-    /**
-     * The videos that our Adapter will show
-     */
-    var videos: List<DevByteVideo> = emptyList()
-        set(value) {
-            field = value
-            // For an extra challenge, update this to use the paging library.
-
-            // Notify any registered observers that the data set has changed. This will cause every
-            // element in our RecyclerView to be invalidated.
-            notifyDataSetChanged()
-        }
+class DevByteAdapter(private val callback: VideoClick) : ListAdapter<DevByteVideo, DevByteViewHolder>(Callback()) {
 
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
      * an item.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevByteViewHolder {
-        val withDataBinding: DevbyteItemBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                DevByteViewHolder.LAYOUT,
-                parent,
-                false)
-        return DevByteViewHolder(withDataBinding)
+        return DevByteViewHolder.from(parent)
     }
 
-    override fun getItemCount() = videos.size
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
@@ -205,10 +188,19 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      * position.
      */
     override fun onBindViewHolder(holder: DevByteViewHolder, position: Int) {
-        holder.viewDataBinding.also {
-            it.video = videos[position]
-            it.videoCallback = callback
-        }
+        val video = getItem(position)
+        holder.bind(video, callback)
+    }
+
+}
+
+class Callback : DiffUtil.ItemCallback<DevByteVideo>() {
+    override fun areItemsTheSame(oldItem: DevByteVideo, newItem: DevByteVideo): Boolean {
+        return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: DevByteVideo, newItem: DevByteVideo): Boolean {
+        return oldItem == newItem
     }
 
 }
@@ -216,10 +208,23 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
 /**
  * ViewHolder for DevByte items. All work is done by data binding.
  */
-class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
+class DevByteViewHolder(private val viewDataBinding: DevbyteItemBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
         @LayoutRes
         val LAYOUT = R.layout.devbyte_item
+
+        fun from(parent: ViewGroup):DevByteViewHolder{
+            val inflater = LayoutInflater.from(parent.context)
+            return DevByteViewHolder(DataBindingUtil.inflate(inflater, LAYOUT,parent,false))
+        }
+    }
+
+
+    fun bind(video: DevByteVideo, click: VideoClick) {
+        viewDataBinding.also {
+            it.video = video
+            it.videoCallback = click
+        }
     }
 }

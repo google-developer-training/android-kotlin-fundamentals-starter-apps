@@ -17,7 +17,15 @@
 package com.example.android.devbyteviewer
 
 import android.app.Application
+import android.os.Build
+import androidx.work.*
+import com.example.android.devbyteviewer.work.RefreshDataWorker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.joda.time.Interval
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 /**
  * Override application to setup background work via WorkManager
@@ -30,8 +38,37 @@ class DevByteApplication : Application() {
      * Use it to setup any background tasks, running expensive setup operations in a background
      * thread to avoid delaying app start.
      */
+
+    private val uiScope = CoroutineScope(Dispatchers.Default)
+
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(Timber.DebugTree())
+        uiScope.launch {
+            setupRecurringWork()
+            Timber.plant(Timber.DebugTree())
+        }
+    }
+
+    private fun setupRecurringWork() {
+        val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.UNMETERED)
+                .setRequiresCharging(true)
+                .setRequiresBatteryNotLow(true)
+                .apply {
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                        setRequiresDeviceIdle(true)
+                    }
+                }
+                .build()
+
+        val repeatRequest = PeriodicWorkRequestBuilder<RefreshDataWorker>(1, TimeUnit.DAYS)
+                .setConstraints(constraints)
+                .build()
+
+        WorkManager.getInstance().enqueueUniquePeriodicWork(
+                RefreshDataWorker.WOEK_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                repeatRequest
+        )
     }
 }
