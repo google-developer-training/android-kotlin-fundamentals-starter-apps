@@ -96,12 +96,16 @@ class GameFragment : Fragment() {
     /** Methods for buttons presses **/
 
     private fun onSkip() {
-        score--
+        if (!wordList.isEmpty()) {
+            score--
+        }
         nextWord()
     }
 
     private fun onCorrect() {
-        score++
+        if (!wordList.isEmpty()) {
+            score++
+        }
         nextWord()
     }
 
