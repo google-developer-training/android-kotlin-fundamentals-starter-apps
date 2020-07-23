@@ -44,20 +44,20 @@
 
         <TextView
             android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="222dp"
+            android:layout_height="67dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/bangers"
             android:text="@string/title_text"
-            android:textColor="@color/black_text_color"
-            android:textSize="34sp"
+            android:textColor="#AD000000"
+            android:textSize="36sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/play_game_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/get_ready_text"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <Button
             android:id="@+id/play_game_button"
