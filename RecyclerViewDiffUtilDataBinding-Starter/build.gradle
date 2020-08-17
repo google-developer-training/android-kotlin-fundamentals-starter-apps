@@ -21,10 +21,10 @@ buildscript {
     ext {
         kotlin_version = '1.3.72'
         archLifecycleVersion = '1.1.1'
-        room_version = '2.0.0'
-        coroutine_version = '1.0.0'
-        gradleVersion = '4.0.0'
-        navigationVersion = '1.0.0-alpha07'
+        room_version = '2.2.0'
+        coroutine_version = '1.3.7'
+        gradleVersion = '4.0.1'
+        navigationVersion = '1.0.0'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
 
