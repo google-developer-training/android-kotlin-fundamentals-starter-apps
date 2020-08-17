@@ -22,14 +22,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    compileSdkVersion 28
-    dataBinding {
-        enabled = true
-    }
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.example.android.gdgfinder"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -43,6 +40,10 @@ android {
     }
     androidExtensions {
         experimental = true
+    }
+
+    buildFeatures {
+        dataBinding true
     }
 }
 
