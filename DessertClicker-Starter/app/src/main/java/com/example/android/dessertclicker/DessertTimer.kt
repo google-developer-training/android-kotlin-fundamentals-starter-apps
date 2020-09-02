@@ -62,7 +62,6 @@
 //        handler.postDelayed(runnable, 1000)
 //
 //        // Note that the Thread the handler runs on is determined by a class called Looper.
-//        // In this case, no looper is defined, and it defaults to the main or UI thread.
 //    }
 //
 //    fun stopTimer() {
