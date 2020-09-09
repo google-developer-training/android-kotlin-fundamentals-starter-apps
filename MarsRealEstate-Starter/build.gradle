@@ -14,7 +14,7 @@ buildscript {
         version_lifecycle = "2.2.0"
         version_moshi = "1.8.0"
         version_navigation = "1.0.0"
-        version_retrofit = "2.5.0"
+        version_retrofit = "2.9.0"
         version_recyclerview = "1.0.0"
     }
 
