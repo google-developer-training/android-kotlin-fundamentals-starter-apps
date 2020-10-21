@@ -19,12 +19,12 @@
 buildscript {
 
     ext {
-        kotlin_version = '1.3.72'
+        kotlin_version = '1.4.10'
         archLifecycleVersion = '1.1.1'
         room_version = '2.2.5'
         coroutine_version = '1.3.7'
-        gradleVersion = '4.0.1'
-        navigationVersion = '1.0.0-alpha07'
+        gradleVersion = '4.1.0'
+        navigationVersion = '2.3.1'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
 
@@ -36,7 +36,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
