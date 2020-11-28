@@ -18,6 +18,13 @@ You need to know:
   that uses TextView, Button, and a basic layout such as LinearLayout.
 - How to add a click handler to a Button.
 
+What you'll learn
+- How to get user input using an EditText view.
+- How to set text to a TextView view using the text from the EditText view.
+- How to work with View and ViewGroup.
+- How to change the visibility of a View.
+- How to hide the keyboard
+
 Getting Started
 ---------------
 
