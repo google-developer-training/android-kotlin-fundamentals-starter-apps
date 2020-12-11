@@ -60,12 +60,3 @@ through this process.)
 2. Open the sample into Android Studio.
 3. Build and run the sample. You may need to update gradle and library versions. 
 Follow the guidance provided by Android Studio. 
-
-License
--------
-
-Copyright 2018 Google, Inc.
-
-All image and audio files (including *.png, *.jpg, *.svg, *.mp3, *.wav
-and *.ogg) are licensed under the CC BY 4.0 license. All other files are
-licensed under the Apache 2 license.
