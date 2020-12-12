@@ -22,15 +22,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.ScoreFragmentBinding
+import java.lang.IllegalArgumentException
 
 /**
  * Fragment where the final score is shown, after the game is over
  */
 class ScoreFragment : Fragment() {
 
+
+    private lateinit var scoreModel: screenScoreModel
+    private lateinit var viewModelFactory: scoreViewModelFactory
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -44,7 +51,20 @@ class ScoreFragment : Fragment() {
                 container,
                 false
         )
-
+   viewModelFactory= scoreViewModelFactory(ScoreFragmentArgs.fromBundle(arguments!!).score)
+        scoreModel = ViewModelProviders.of(this, viewModelFactory)
+                .get(screenScoreModel::class.java)
+        binding.scoreText.text = scoreModel.score.toString()
         return binding.root
     }
+}
+class scoreViewModelFactory(private val finalScore:Int):ViewModelProvider.Factory{
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
+if (modelClass.isAssignableFrom(screenScoreModel::class.java)){
+    return screenScoreModel(finalScore)as T
+}
+throw IllegalArgumentException("Score Not Created")
+    }
+
 }
