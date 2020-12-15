@@ -23,7 +23,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_dessert_clicker_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".ClickerApplication">
         <activity android:name="com.example.android.dessertclicker.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
