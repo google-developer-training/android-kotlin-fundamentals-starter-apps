@@ -2,7 +2,6 @@ TrackMySleepQuality with RecyclerView - Starter Code for 7.3
 ============================================================
 
 Starter code for Android Kotlin Fundamentals Codelab 7.3 GridLayout with RecyclerView
-
 Introduction
 ------------
 
