@@ -75,4 +75,7 @@ dependencies {
     // Moshi
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$version_glide"
+
 }
