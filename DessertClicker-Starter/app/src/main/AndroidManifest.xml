@@ -18,6 +18,7 @@
     package="com.example.android.dessertclicker">
 
     <application
+        android:name=".ClickerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_dessert_clicker"
         android:label="@string/app_name"
