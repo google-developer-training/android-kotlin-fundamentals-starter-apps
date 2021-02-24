@@ -15,7 +15,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.dessertpusher">
+    package="com.example.android.dessertclicker">
 
    <!-- <application
         android:allowBackup="true"
@@ -34,7 +34,7 @@
     </application> -->
 
     <application
-        android:name=".PusherApplication"
+        android:name=".ClickerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_dessert_clicker"
         android:label="Dessert Pusher"

@@ -26,8 +26,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
-//import com.example.android.dessertclicker.databinding.ActivityMainBinding
-import com.example.android.dessertpusher.R
+import com.example.android.dessertclicker.databinding.ActivityMainBinding
+//import com.example.android.dessertpusher.R
 import timber.log.Timber
 import timber.log.Timber.i
 
