@@ -19,13 +19,17 @@ package com.example.android.dessertclicker
 import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.i
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
-import com.example.android.dessertclicker.databinding.ActivityMainBinding
+//import com.example.android.dessertclicker.databinding.ActivityMainBinding
+import com.example.android.dessertpusher.R
+import timber.log.Timber
+import timber.log.Timber.i
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,7 +69,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState) //we are overriding any lifecycles
 
-        Log.i("MainActivity", "onCreate called")
+        Timber.i("onCreate called")
+        //Log.i("MainActivity", "onCreate called")
 
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -149,10 +154,32 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //LIFE CYCLE METHODS
     override fun onStart() {
         super.onStart()
-        Log.i("MainActivity", "onStartCalled")
+        //Log.i("MainActivity", "onStartCalled")
+        dessertsSold = 0
         timber.i("onStart Called")
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 }
