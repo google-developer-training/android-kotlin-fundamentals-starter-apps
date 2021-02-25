@@ -18,8 +18,6 @@ package com.example.android.dessertclicker
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
-import android.util.Log
-import android.util.Log.i
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -29,13 +27,12 @@ import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
 //import com.example.android.dessertpusher.R
 import timber.log.Timber
-import timber.log.Timber.i
 
 class MainActivity : AppCompatActivity() {
 
     private var revenue = 0
     private var dessertsSold = 0
-
+    private lateinit var dessertTimer: DessertTimer
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
 
@@ -78,6 +75,9 @@ class MainActivity : AppCompatActivity() {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
+
+        //Create a Dessert Timer
+        dessertTimer = DessertTimer(this.lifecycle)
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -158,28 +158,40 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         //Log.i("MainActivity", "onStartCalled")
+        //dessertTimer.startTimer()
         dessertsSold = 0
-        timber.i("onStart Called")
+        Timber.i("onStart Called")
 
     }
 
     override fun onPause() {
         super.onPause()
+        Timber.i("onPause Called")
+
     }
 
     override fun onResume() {
         super.onResume()
+        Timber.i("onResume Called")
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        Timber.i("onDestroy Called")
+
     }
 
     override fun onRestart() {
         super.onRestart()
+        Timber.i("onRestart Called")
+
     }
 
     override fun onStop() {
         super.onStop()
+        //dessertTimer.stopTimer()
+        Timber.i("onStop Called")
+
     }
 }
