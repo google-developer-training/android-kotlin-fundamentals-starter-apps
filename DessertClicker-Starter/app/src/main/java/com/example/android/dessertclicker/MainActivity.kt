@@ -28,11 +28,16 @@ import com.example.android.dessertclicker.databinding.ActivityMainBinding
 //import com.example.android.dessertpusher.R
 import timber.log.Timber
 
+const val KEY_REVENUE = "key_revenue"
+const val KEY_DESSERT_SOLD = "dessert_sold"
+const val KEY_TIMER_SECONDS = "key_timer_seconds"
+
 class MainActivity : AppCompatActivity() {
 
     private var revenue = 0
     private var dessertsSold = 0
     private lateinit var dessertTimer: DessertTimer
+
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
 
@@ -78,6 +83,13 @@ class MainActivity : AppCompatActivity() {
 
         //Create a Dessert Timer
         dessertTimer = DessertTimer(this.lifecycle)
+
+        if (savedInstanceState != null) {
+            revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD, 0)
+            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_TIMER_SECONDS)
+
+        }
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -155,19 +167,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     //LIFE CYCLE METHODS
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_REVENUE, revenue)
+        outState.putInt(KEY_DESSERT_SOLD, dessertsSold)
+        outState.putInt(KEY_TIMER_SECONDS, dessertTimer.secondsCount)
+        Timber.i("onSaveInstanceState Called")
+    }
+
     override fun onStart() {
         super.onStart()
-        //Log.i("MainActivity", "onStartCalled")
-        //dessertTimer.startTimer()
-        dessertsSold = 0
+        //dessertsSold = 0
         Timber.i("onStart Called")
-
     }
 
     override fun onPause() {
         super.onPause()
         Timber.i("onPause Called")
-
     }
 
     override fun onResume() {

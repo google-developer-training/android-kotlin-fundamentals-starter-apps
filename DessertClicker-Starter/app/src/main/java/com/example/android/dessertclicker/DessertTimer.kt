@@ -22,6 +22,7 @@ import android.os.Looper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+
 /**
  * This is a class representing a timer that you can start or stop. The secondsCount outputs a count of
  * how many seconds since it started, every one second.
@@ -37,18 +38,20 @@ import androidx.lifecycle.OnLifecycleEvent
  * https://developer.android.com/guide/components/processes-and-threads
  *
  */
-class DessertTimer (Lifecycle: Lifecycle) : LifecycleObserver {
+class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
 
     init {
         lifecycle.addObserver(this)
     }
 
-    fun dummyMethod(){
-        Timber.i("I was called")
-    }
+    //@OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    //fun dummyMethod(){
+    //Timber.i("I was called")
+    //}
 
     // The number of seconds counted since the timer started
     var secondsCount = 0
+
     /**
      * [Handler] is a class meant to process a queue of messages (known as [android.os.Message]s)
      * or actions (known as [Runnable]s)
@@ -73,6 +76,7 @@ class DessertTimer (Lifecycle: Lifecycle) : LifecycleObserver {
 
         // Note that the Thread the handler runs on is determined by a class called Looper.
     }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun stopTimer() {
         // Removes all pending posts of runnable from the handler's queue, effectively stopping the
