@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package com.example.android.gdgfinder.search
 
 import android.content.Intent
@@ -24,17 +23,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.databinding.FragmentGdgListBinding
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-import com.example.android.gdgfinder.R
 
 private const val LOCATION_PERMISSION_REQUEST = 1
 
@@ -44,7 +45,7 @@ class GdgListFragment : Fragment() {
 
 
     private val viewModel: GdgListViewModel by lazy {
-        ViewModelProvider(this).get(GdgListViewModel::class.java)
+        ViewModelProviders.of(this).get(GdgListViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -65,15 +66,37 @@ class GdgListFragment : Fragment() {
         // Sets the adapter of the RecyclerView
         binding.gdgChapterList.adapter = adapter
 
-        viewModel.showNeedLocation.observe(viewLifecycleOwner, object: Observer<Boolean> {
+        viewModel.showNeedLocation.observe(viewLifecycleOwner, object : Observer<Boolean> {
             override fun onChanged(show: Boolean?) {
                 // Snackbar is like Toast but it lets us show forever
                 if (show == true) {
                     Snackbar.make(
-                        binding.root,
-                        "No location. Enable location in settings (hint: test with Maps) then check app permissions!",
-                        Snackbar.LENGTH_LONG
+                            binding.root,
+                            "No location. Enable location in settings (hint: test with Maps) then check app permissions!",
+                            Snackbar.LENGTH_LONG
                     ).show()
+                }
+            }
+        })
+
+        viewModel.regionList.observe(viewLifecycleOwner, object : Observer<List<String>> {
+            override fun onChanged(data: List<String>?) {
+                data ?: return
+                val chipGroup = binding.regionList
+                val inflator = LayoutInflater.from(chipGroup.context)
+                val children = data.map { regionName ->
+                    val chip = inflator.inflate(R.layout.region, chipGroup, false) as Chip
+                    chip.text = regionName
+                    chip.tag = regionName
+                    chip.setOnCheckedChangeListener { button, isChecked ->
+                        viewModel.onFilterChanged(button.tag as String, isChecked)
+                    }
+                    chip
+                }
+                chipGroup.removeAllViews()
+
+                for (chip in children) {
+                    chipGroup.addView(chip)
                 }
             }
         })
@@ -130,7 +153,7 @@ class GdgListFragment : Fragment() {
 
 
         val request = LocationRequest().setPriority(LocationRequest.PRIORITY_LOW_POWER)
-        val callback = object: LocationCallback() {
+        val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 val location = locationResult?.lastLocation ?: return
                 viewModel.onLocationUpdated(location)
@@ -146,7 +169,7 @@ class GdgListFragment : Fragment() {
      */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
+        when (requestCode) {
             LOCATION_PERMISSION_REQUEST -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     requestLastLocationOrStartLocationUpdates()
@@ -155,5 +178,4 @@ class GdgListFragment : Fragment() {
         }
     }
 }
-
 

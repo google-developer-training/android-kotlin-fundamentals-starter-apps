@@ -42,14 +42,15 @@ class HomeFragment : Fragment() {
     ): View? {
         val binding = HomeFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-//        viewModel.navigateToSearch.observe(viewLifecycleOwner,
-//            Observer<Boolean> { navigate ->
-//                if (navigate) {
-//                    val navController = findNavController()
-//                    navController.navigate(R.id.action_homeFragment_to_gdgListFragment)
-//                    viewModel.onNavigatedToSearch()
-//                }
-//            })
+        binding.viewModel = viewModel
+        viewModel.navigateToSearch.observe(viewLifecycleOwner,
+            Observer<Boolean> { navigate ->
+                if (navigate) {
+                    val navController = findNavController()
+                    navController.navigate(R.id.action_homeFragment_to_gdgListFragment)
+                    viewModel.onNavigatedToSearch()
+                }
+            })
         return binding.root
     }
 }

@@ -40,21 +40,22 @@
             android:id="@+id/gdg_image"
             android:layout_width="50dp"
             android:layout_height="76dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="@dimen/spacing_normal"
             android:layout_marginTop="26dp"
             android:layout_marginBottom="26dp"
             android:contentDescription="TODO"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_gdg" />
+
 
         <TextView
             android:id="@+id/chapter_name"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_normal"
             android:gravity="center_vertical"
             android:text="@{chapter.name}"
             android:textAppearance="?textAppearanceHeadline6"

@@ -16,4 +16,5 @@
 
 <resources>
 
+    <dimen name="spacing_normal">16dp</dimen>
 </resources>
