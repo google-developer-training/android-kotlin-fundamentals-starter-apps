@@ -25,6 +25,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+      
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,6 +49,8 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="#FF555555"
                 android:layout_marginTop="16dp"
                 android:text="@string/about_google_developer_groups"
                 app:layout_constraintEnd_toStartOf="@+id/end_guideline"
