@@ -46,7 +46,7 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
  * and convert it to a nicely formatted string for display.
  *
  * EEEE - Display the long letter version of the weekday
- * MMM - Display the letter abbreviation of the nmotny
+ * MMM - Display the letter abbreviation of the month
  * dd-yyyy - day in month and full year numerically
  * HH:mm - Hours and minutes in 24hr format
  */
