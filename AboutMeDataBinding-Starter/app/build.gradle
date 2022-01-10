@@ -1,9 +1,10 @@
-apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
+plugins{
+    id 'kotlin-android-extensions'
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 android {
     compileSdkVersion 31
     defaultConfig {
@@ -21,11 +22,15 @@ android {
         }
     }
     // Enable data binding here.
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.startup:startup-runtime:1.1.0"
     testImplementation 'junit:junit:4.12'
 }
