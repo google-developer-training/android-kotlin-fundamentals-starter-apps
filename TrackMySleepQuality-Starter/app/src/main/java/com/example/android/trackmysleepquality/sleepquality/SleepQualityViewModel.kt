@@ -15,3 +15,8 @@
  */
 
 package com.example.android.trackmysleepquality.sleepquality
+
+import androidx.lifecycle.ViewModel
+
+class SleepQualityViewModel : ViewModel() {
+}
