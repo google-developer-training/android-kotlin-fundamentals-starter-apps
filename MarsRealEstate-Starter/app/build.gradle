@@ -77,4 +77,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+    implementation "com.github.bumptech.glide:glide:$version_glide"
 }
