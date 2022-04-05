@@ -23,14 +23,14 @@ buildscript {
         archLifecycleVersion = '1.1.1'
         room_version = '2.2.5'
         coroutine_version = '1.3.7'
-        gradleVersion = '4.0.1'
+        gradleVersion = '7.1.2'
         navigationVersion = '1.0.0-alpha07'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -46,7 +46,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
