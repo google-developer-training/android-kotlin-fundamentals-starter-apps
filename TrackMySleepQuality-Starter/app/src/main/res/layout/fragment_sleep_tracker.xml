@@ -24,7 +24,7 @@
          click handlers, and state variables. -->
     <data>
         <variable
-            name="SleepTrackerViewModel"
+            name="sleepTrackerViewModel"
             type="com.example.android.trackmysleepquality.sleeptracker.SleepTrackerViewModel" />
     </data>
 
@@ -58,7 +58,8 @@
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginEnd="@dimen/margin"
-                android:text="@string/how_was_hour_sleep" />
+                android:text="@{sleepTrackerViewModel.nightsString}"
+                tools:text="@string/how_was_hour_sleep" />
         </ScrollView>
 
         <!-- With data binding and LiveData, we can track the buttons' visibility states
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
             android:text="@string/start"
+            android:onClick="@{() -> sleepTrackerViewModel.onStartTracking()}"
             app:layout_constraintBaseline_toBaselineOf="@id/stop_button"
             app:layout_constraintEnd_toStartOf="@+id/stop_button"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -98,6 +100,7 @@
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/margin"
             android:text="@string/clear"
+            android:onClick="@{() -> sleepTrackerViewModel.onClear()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
