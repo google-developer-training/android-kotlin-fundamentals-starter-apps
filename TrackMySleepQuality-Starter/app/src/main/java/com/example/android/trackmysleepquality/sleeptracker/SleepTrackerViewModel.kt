@@ -60,6 +60,21 @@ class SleepTrackerViewModel(
         }
     }
 
+    fun onStopTracking() {
+        viewModelScope.launch {
+            val oldNight = _tonight.value ?: return@launch
+            oldNight?.endTimeMilli = System.currentTimeMillis()
+            update(oldNight)
+        }
+    }
+
+    fun onClear() {
+        viewModelScope.launch {
+            database.clear()
+            _tonight.value = null
+        }
+    }
+
     private suspend fun getTonightFromDatabase(): SleepNight? {
         var night = database.getTonight()
         if (night?.startTimeMilli != night?.endTimeMilli) {
@@ -73,10 +88,7 @@ class SleepTrackerViewModel(
         database.insert(night)
     }
 
-    fun onClear() {
-        viewModelScope.launch {
-            database.clear()
-            _tonight.value = null
-        }
+    private suspend fun update(night: SleepNight) {
+        database.update(night)
     }
 }
