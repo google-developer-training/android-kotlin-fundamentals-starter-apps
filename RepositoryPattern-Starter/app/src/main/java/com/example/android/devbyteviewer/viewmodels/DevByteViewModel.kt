@@ -38,27 +38,21 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     /**
      * The data source this ViewModel will fetch results from.
      */
-    // TODO: Add a reference to the VideosRepository class
     private val videosRepository = VideosRepository(getDatabase(application))
 
     /**
      * A playlist of videos displayed on the screen.
      */
-    // TODO: Replace the MutableLiveData and backing property below to a reference to the 'videos'
-    // TODO: from the VideosRepository
     val playlist = videosRepository.videos.asLiveData()
     /**
      * A playlist of videos that can be shown on the screen. This is private to avoid exposing a
      * way to set this value to observers.
      */
-//    private val _playlist = MutableLiveData<List<DevByteVideo>>()
 
     /**
      * A playlist of videos that can be shown on the screen. Views should use this to get access
      * to the data.
      */
-//    val playlist: LiveData<List<DevByteVideo>>
-//        get() = _playlist
 
     /**
      * Event triggered for network error. This is private to avoid exposing a
@@ -90,7 +84,6 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * init{} is called immediately when this ViewModel is created.
      */
     init {
-        // TODO: Replace with a call to the refreshDataFromRepository9) method
         refreshDataFromRepository()
     }
 
@@ -98,18 +91,17 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * Refresh data from the repository. Use a coroutine launch to run in a
      * background thread.
      */
-    // TODO: Replace with the refreshDataFromRepository() method
     private fun refreshDataFromRepository() {
         viewModelScope.launch {
             try {
                 videosRepository.refreshVideos()
                 _eventNetworkError.value = false
                 _isNetworkErrorShown.value = false
-
             } catch (networkError: IOException) {
                 // Show a Toast error message and hide the progress bar.
-                if(playlist.value.isNullOrEmpty())
+                if (playlist.value.isNullOrEmpty()) {
                     _eventNetworkError.value = true
+                }
             }
         }
     }
