@@ -17,19 +17,13 @@
 package com.example.android.devbyteviewer.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.android.devbyteviewer.database.getDatabase
-import com.example.android.devbyteviewer.domain.DevByteVideo
-import com.example.android.devbyteviewer.network.DevByteNetwork
-import com.example.android.devbyteviewer.network.asDomainModel
 import com.example.android.devbyteviewer.repository.VideosRepository
-import kotlinx.coroutines.*
-import java.io.IOException
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 /**
  * DevByteViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
@@ -84,15 +78,11 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     private fun refreshDataFromRepository() {
         viewModelScope.launch {
-            try {
-                videosRepository.refreshVideos()
+            videosRepository.refreshVideos().onEach {
                 _eventNetworkError.value = false
                 _isNetworkErrorShown.value = false
-
-            } catch (networkError: IOException) {
-                // Show a Toast error message and hide the progress bar.
-                if(playlist.value.isNullOrEmpty())
-                    _eventNetworkError.value = true
+            }.catch {
+                _eventNetworkError.value = true
             }
         }
     }

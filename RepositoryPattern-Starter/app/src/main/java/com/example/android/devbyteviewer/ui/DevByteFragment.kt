@@ -28,6 +28,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.devbyteviewer.R
@@ -35,6 +36,9 @@ import com.example.android.devbyteviewer.databinding.DevbyteItemBinding
 import com.example.android.devbyteviewer.databinding.FragmentDevByteBinding
 import com.example.android.devbyteviewer.domain.DevByteVideo
 import com.example.android.devbyteviewer.viewmodels.DevByteViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * Show a list of DevBytes on screen.
@@ -67,11 +71,13 @@ class DevByteFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<DevByteVideo>> { videos ->
-            videos?.apply {
-                viewModelAdapter?.videos = videos
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.playlist.collect {
+                it.apply {
+                    viewModelAdapter?.videos = this
+                }
             }
-        })
+        }
     }
 
     /**
