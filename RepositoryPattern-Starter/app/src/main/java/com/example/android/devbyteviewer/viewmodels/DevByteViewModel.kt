@@ -94,7 +94,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * init{} is called immediately when this ViewModel is created.
      */
     init {
-        // TODO: Replace with a call to the refreshDataFromRepository9) method
+        // TODO: Replace with a call to the refreshDataFromRepository() method
         refreshDataFromNetwork()
     }
 
