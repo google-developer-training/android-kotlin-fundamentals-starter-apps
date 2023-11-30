@@ -1,4 +1,10 @@
-Android Fundamentals in Kotlin Starter Apps
+Rearrange 
+=========
+
+This module is used for rearranging names
+
+
+<!-- Android Fundamentals in Kotlin Starter Apps
 ===========================================
 
 This repository contains the starter code for the apps for the
@@ -59,4 +65,4 @@ through this process.)
 2. Download the starter sample for the codelab.
 2. Open the sample into Android Studio.
 3. Build and run the sample. You may need to update gradle and library versions. 
-Follow the guidance provided by Android Studio. 
+Follow the guidance provided by Android Studio.  -->
